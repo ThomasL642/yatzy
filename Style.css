@@ -1,0 +1,155 @@
+/* General page styling */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f9;
+    color: #333;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Header styling */
+header {
+    text-align: center;
+    padding: 20px;
+    background-color: #4CAF50;
+    color: white;
+    width: 100%;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 2em;
+}
+
+header nav a {
+    color: white;
+    margin: 0 10px;
+    text-decoration: none;
+}
+
+header nav a:hover {
+    text-decoration: underline;
+}
+
+/* Player Selection Buttons */
+section {
+    margin: 20px;
+}
+
+section button {
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 1em;
+    cursor: pointer;
+    background-color: #2196F3;
+    color: white;
+    border: none;
+    border-radius: 5px;
+}
+
+section button:hover {
+    background-color: #1e88e5;
+}
+
+/* Game Area Styling */
+main {
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    margin: 20px;
+}
+
+/* User areas */
+main div {
+    text-align: center;
+}
+
+main h2 {
+    font-size: 1.5em;
+    margin-bottom: 10px;
+    color: #555;
+}
+
+/* Dice buttons */
+main div button {
+    width: 50px;
+    height: 50px;
+    font-size: 1em;
+    margin: 5px;
+    border: 1px solid #ddd;
+    background-color: #eee;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+main div button:hover {
+    background-color: #ddd;
+}
+
+main div button:active {
+    background-color: #ccc;
+}
+
+/* Roll Die button */
+main div button.roll {
+    width: 300px;
+    height: 40px;
+    background-color: #FF5722;
+    color: white;
+    font-size: 1em;
+    border: none;
+    margin-top: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+main div button.roll:hover {
+    background-color: #e64a19;
+}
+
+/* Score Table Styling */
+table {
+    border-collapse: collapse;
+    margin: 20px 0;
+    font-size: 1em;
+    min-width: 400px;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+    padding: 8px;
+    text-align: center;
+}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+    font-weight: bold;
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+td {
+    background-color: #fff;
+}
+
+/* Total Score Row Styling */
+table tr:last-child {
+    font-weight: bold;
+    background-color: #2196F3;
+    color: white;
+}
+
+html {
+    scroll-behavior: smooth;
+}
