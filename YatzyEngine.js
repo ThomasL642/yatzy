@@ -191,3 +191,44 @@ scoreboard.addYahtzeeBonus();            // Third Yahtzee, adds another 100 bonu
 
 // Display the scoreboard and total score
 scoreboard.displayScoreboard();
+
+
+function RollButtonPlayer1() {
+    const roll = new Roll(); // Create a new roll instance
+    const rollHistory = new RollHistory(); // Create a new roll history instance
+
+    // Roll multiple times and add each result to history
+    for (let i = 0; i < 5; i++) {
+        roll.roll(); // Generate a new roll
+        rollHistory.addRoll(roll.result); // Add the roll to history
+    }
+
+    const playersroll = rollHistory.getHistory();
+    console.log(playersroll);
+
+    playersroll.forEach((number, index) => {
+        console.log(number, index); 
+        const imageElement = document.getElementById("die" + (index + 1));
+        imageElement.src = "dice(" + number + ").png";
+    });
+}
+
+function RollButtonPlayer2() {
+    const roll = new Roll(); // Create a new roll instance
+    const rollHistory = new RollHistory(); // Create a new roll history instance
+
+    // Roll multiple times and add each result to history
+    for (let i = 0; i < 5; i++) {
+        roll.roll(); // Generate a new roll
+        rollHistory.addRoll(roll.result); // Add the roll to history
+    }
+
+    const playersroll = rollHistory.getHistory();
+    console.log(playersroll);
+
+    playersroll.forEach((number, index) => {
+        console.log(number, index); 
+        const imageElement = document.getElementById("die" + (index + 6));
+        imageElement.src = "dice(" + number + ").png";
+    });
+}

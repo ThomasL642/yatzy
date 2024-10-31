@@ -9,7 +9,7 @@
 </head>
 <body>
 
-    <!-- Init Dice-->>
+    <!-- Init Dice-->
     <script>
         window.dice = new Roll();
         window.rollHistory = new RollHistory();
@@ -26,10 +26,10 @@
     </header>
 
     <!-- Player Selection -->
-    <section>
+    <!-- <section>
         <button>1 Player</button>
         <button>2 Players (local)</button>
-    </section>
+    </section> -->
 
     <!-- Game Area -->
     <main>
@@ -38,26 +38,26 @@
         <div>
             <h2>User 1</h2>
             <div>
-                <button>Dice 1</button>
-                <button>Dice 2</button>
-                <button>Dice 3</button>
-                <button>Dice 4</button>
-                <button>Dice 5</button>
+                <img id="die1" src="dice(1).png" alt="Die 1">
+                <img id="die2" src="dice(1).png" alt="Die 2">
+                <img id="die3" src="dice(1).png" alt="Die 3">
+                <img id="die4" src="dice(1).png" alt="Die 4">
+                <img id="die5" src="dice(1).png" alt="Die 5">
             </div>
-            <button class="roll">Roll Die</button>
+            <button onclick="RollButtonPlayer1()" class="roll">Roll Die</button>
         </div>
 
         <!-- User 2 Area -->
         <div>
             <h2>User 2</h2>
             <div>
-                <button>Dice 1</button>
-                <button>Dice 2</button>
-                <button>Dice 3</button>
-                <button>Dice 4</button>
-                <button>Dice 5</button>
+                <img id="die6" src="dice(1).png" alt="Die 1">
+                <img id="die7" src="dice(1).png" alt="Die 2">
+                <img id="die8" src="dice(1).png" alt="Die 3">
+                <img id="die9" src="dice(1).png" alt="Die 4">
+                <img id="die10" src="dice(1).png" alt="Die 5">
             </div>
-            <button class="roll">Roll Die</button>
+            <button onclick="RollButtonPlayer2()" class="roll">Roll Die</button>
         </div>
 
         <!-- Score Table -->
@@ -125,6 +125,7 @@
         </ul>
 
     </section>
+
 
 </body>
 </html>

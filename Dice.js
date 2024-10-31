@@ -43,3 +43,4 @@ for (let i = 0; i < 5; i++) {
 console.log("Roll History:", rollHistory.getHistory()); // Display the roll history
 rollHistory.clearHistory(); // Clear history
 console.log("History after clearing:", rollHistory.getHistory());
+
