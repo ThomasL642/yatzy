@@ -63,7 +63,7 @@ main {
     margin: 20px;
 }
 
-/* User areas */
+/* Player areas */
 main div {
     text-align: center;
 }
@@ -152,4 +152,8 @@ table tr:last-child {
 
 html {
     scroll-behavior: smooth;
+}
+
+.darkened {
+    filter: brightness(50%);
 }

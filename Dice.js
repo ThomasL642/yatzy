@@ -30,17 +30,3 @@ class RollHistory {
     
 }
 
-// Usage example
-const roll = new Roll(); // Create a new roll instance
-const rollHistory = new RollHistory(); // Create a new roll history instance
-
-// Roll multiple times and add each result to history
-for (let i = 0; i < 5; i++) {
-    roll.roll(); // Generate a new roll
-    rollHistory.addRoll(roll.result); // Add the roll to history
-}
-
-console.log("Roll History:", rollHistory.getHistory()); // Display the roll history
-rollHistory.clearHistory(); // Clear history
-console.log("History after clearing:", rollHistory.getHistory());
-

@@ -192,43 +192,71 @@ scoreboard.addYahtzeeBonus();            // Third Yahtzee, adds another 100 bonu
 // Display the scoreboard and total score
 scoreboard.displayScoreboard();
 
+let rollHistory = new RollHistory();
+let roll = new Roll(); // Create a new roll instance
 
-function RollButtonPlayer1() {
-    const roll = new Roll(); // Create a new roll instance
-    const rollHistory = new RollHistory(); // Create a new roll history instance
+//wont save frozen dice
+function RollButtonPlayer(buttonNumber) {
+    let SavedDie = [];
+    if (NumberOfRolls >= 1) {
+        FrozenDice.forEach(number => {
+            SavedDie.push(rollHistory[number]);
+        });}
+    
+    if (PlayerTurn != buttonNumber) {
+        console.log("Button Frozen");
+        console.log(rollHistory);
+    }else{
+        let diceOffset = 1;
+        if (PlayerTurn == 2) {diceOffset += 5;}
+        
+        rollHistory.clearHistory();
 
-    // Roll multiple times and add each result to history
-    for (let i = 0; i < 5; i++) {
-        roll.roll(); // Generate a new roll
-        rollHistory.addRoll(roll.result); // Add the roll to history
+        // Roll multiple times and add each result to history
+        for (let i = 0; i < (5 - FrozenDice.length); i++) {
+            roll.roll(); // Generate a new roll
+            rollHistory.addRoll(roll.result); // Add the roll to history
+        }
+
+        const playersroll = SavedDie.concat(rollHistory.getHistory());
+        console.log(playersroll);
+
+        playersroll.forEach((number, index) => {
+            const imageElement = document.getElementById("die" + (index + diceOffset));
+            imageElement.src = "dice(" + number + ").png";
+        });
+        NumberOfRolls += 1;
+        console.log("Roll Number: " + NumberOfRolls);
     }
-
-    const playersroll = rollHistory.getHistory();
-    console.log(playersroll);
-
-    playersroll.forEach((number, index) => {
-        console.log(number, index); 
-        const imageElement = document.getElementById("die" + (index + 1));
-        imageElement.src = "dice(" + number + ").png";
-    });
 }
 
-function RollButtonPlayer2() {
-    const roll = new Roll(); // Create a new roll instance
-    const rollHistory = new RollHistory(); // Create a new roll history instance
+let FrozenDice = [];
 
-    // Roll multiple times and add each result to history
-    for (let i = 0; i < 5; i++) {
-        roll.roll(); // Generate a new roll
-        rollHistory.addRoll(roll.result); // Add the roll to history
+function FreezeDie(dieNumber) {
+    // If no rolls are made die can't be frozen
+    if (NumberOfRolls < 1) {
+        console.log("No Rolls Have Been Made");
+    // If it is player 2 turn but Player 1 dice
+    }else if (((dieNumber / 5) <= 1) && PlayerTurn == 2) {
+        console.log("Not Player 1 Turn");
+    // If it is player 1 turn but Player 2 dice
+    }else if (((dieNumber / 5) > 1) && PlayerTurn == 1) {
+         console.log("Not Player 2 Turn");
+
+    // If Dice is deselcted
+    }else if (FrozenDice.indexOf(dieNumber) !== -1) {
+        console.log(`Number ${dieNumber} is in the array.`);
+        const index = FrozenDice.indexOf(dieNumber);
+        if (index > -1) {
+            FrozenDice.splice(index, 1);
+            const imageElement = document.getElementById("die" + dieNumber);
+            imageElement.style.filter = "brightness(100%)";
+        }
+    // Add it to list
+    }else{
+        FrozenDice.push((dieNumber));
+        console.log("Frozen Die:" + FrozenDice);
+        const imageElement = document.getElementById("die" + dieNumber);
+        imageElement.style.filter = "brightness(50%)";
     }
-
-    const playersroll = rollHistory.getHistory();
-    console.log(playersroll);
-
-    playersroll.forEach((number, index) => {
-        console.log(number, index); 
-        const imageElement = document.getElementById("die" + (index + 6));
-        imageElement.src = "dice(" + number + ").png";
-    });
 }

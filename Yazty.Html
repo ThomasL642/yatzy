@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="Dice.js"></script>
     <script src="YatzyEngine.js"></script>
+    <script src="YatzyGameModule.js"></script>
 </head>
 <body>
 
@@ -26,38 +27,39 @@
     </header>
 
     <!-- Player Selection -->
-    <!-- <section>
-        <button>1 Player</button>
-        <button>2 Players (local)</button>
-    </section> -->
+    <section>
+        <!--<button>1 Player</button>
+        <button>2 Players (local)</button> -->
+        <button id="startButton" onclick="startGame()">Start Game</button>
+    </section>
 
     <!-- Game Area -->
     <main>
-
-        <!-- User 1 Area -->
+        
+        <!-- Player 1 Area -->
         <div>
-            <h2>User 1</h2>
+            <h2>Player 1</h2>
             <div>
-                <img id="die1" src="dice(1).png" alt="Die 1">
-                <img id="die2" src="dice(1).png" alt="Die 2">
-                <img id="die3" src="dice(1).png" alt="Die 3">
-                <img id="die4" src="dice(1).png" alt="Die 4">
-                <img id="die5" src="dice(1).png" alt="Die 5">
+                <img onclick="FreezeDie(1)" id="die1" src="dice(1).png" alt="Die 1">
+                <img onclick="FreezeDie(2)" id="die2" src="dice(1).png" alt="Die 2">
+                <img onclick="FreezeDie(3)" id="die3" src="dice(1).png" alt="Die 3">
+                <img onclick="FreezeDie(4)" id="die4" src="dice(1).png" alt="Die 4">
+                <img onclick="FreezeDie(5)" id="die5" src="dice(1).png" alt="Die 5">
             </div>
-            <button onclick="RollButtonPlayer1()" class="roll">Roll Die</button>
+            <button onclick="RollButtonPlayer(1)" class="roll">Roll Die</button>
         </div>
 
-        <!-- User 2 Area -->
+        <!-- Player 2 Area -->
         <div>
-            <h2>User 2</h2>
+            <h2>Player 2</h2>
             <div>
-                <img id="die6" src="dice(1).png" alt="Die 1">
-                <img id="die7" src="dice(1).png" alt="Die 2">
-                <img id="die8" src="dice(1).png" alt="Die 3">
-                <img id="die9" src="dice(1).png" alt="Die 4">
-                <img id="die10" src="dice(1).png" alt="Die 5">
+                <img onclick="FreezeDie(6)" id="die6" src="dice(1).png" alt="Die 1">
+                <img onclick="FreezeDie(7)" id="die7" src="dice(1).png" alt="Die 2">
+                <img onclick="FreezeDie(8)" id="die8" src="dice(1).png" alt="Die 3">
+                <img onclick="FreezeDie(9)" id="die9" src="dice(1).png" alt="Die 4">
+                <img onclick="FreezeDie(10)" id="die10" src="dice(1).png" alt="Die 5">
             </div>
-            <button onclick="RollButtonPlayer2()" class="roll">Roll Die</button>
+            <button onclick="RollButtonPlayer(2)" class="roll">Roll Die</button>
         </div>
 
         <!-- Score Table -->
