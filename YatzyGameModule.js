@@ -7,8 +7,6 @@ function restartGame(){
     location.reload();
 }
 
-window.restartGame = restartGame;
-
 function startGame() {
         GameStarted = true;
         // Game Starts
@@ -22,13 +20,9 @@ function startGame() {
         startTurn();
     }
 
-window.startGame = startGame;
-
 function startTurn() {
     console.log("Player " + PlayerTurn + "'s Turn");
 }
-
-window.startTurn = startTurn;
 
 function endTurn() {
     //clear historys for new turn
@@ -50,8 +44,6 @@ function endTurn() {
     else {PlayerTurn += 1}
     console.log("it is now Player " + PlayerTurn + "'s turn");
 }
-
-window.endTurn = endTurn;
 
 function endGame() {
     console.log("endGame is called");
@@ -89,4 +81,8 @@ function endGame() {
     }
 }
 
+window.restartGame = restartGame;
+window.startGame = startGame;
+window.startTurn = startTurn;
+window.endTurn = endTurn;
 window.endGame = endGame;
