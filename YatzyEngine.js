@@ -1,6 +1,8 @@
+//ScoreBoard Calculator
 class YatzyChecker {
     constructor(dice) {
         if (dice.length !== 5 || !dice.every(num => num >= 1 && num <= 6)) {
+            console.log("dice is " + dice + "and length is " + dice.length);
             throw new Error("Invalid dice list");
         }
         this.dice = dice;
@@ -72,39 +74,25 @@ class YatzyChecker {
     }
 }
 
-// Example usage:
-const dice = [3, 5, 5, 5, 6];
-const yatzyChecker = new YatzyChecker(dice);
-
-console.log("Ones:", yatzyChecker.scoreOnes());
-console.log("Twos:", yatzyChecker.scoreTwos());
-console.log("Threes:", yatzyChecker.scoreThrees());
-console.log("Three of a Kind:", yatzyChecker.scoreThreeOfAKind());
-console.log("Four of a Kind:", yatzyChecker.scoreFourOfAKind());
-console.log("Full House:", yatzyChecker.scoreFullHouse());
-console.log("Small Straight:", yatzyChecker.scoreSmallStraight());
-console.log("Large Straight:", yatzyChecker.scoreLargeStraight());
-console.log("Chance:", yatzyChecker.scoreChance());
-console.log("Yahtzee:", yatzyChecker.scoreYahtzee());
-
+//ScoreBoard object
 class YatzyScoreboard {
     constructor() {
         // Initialize all categories with null (unscored)
         this.scores = {
-            ones: null,
-            twos: null,
-            threes: null,
-            fours: null,
-            fives: null,
-            sixes: null,
-            threeOfAKind: null,
-            fourOfAKind: null,
-            fullHouse: null,
-            smallStraight: null,
-            largeStraight: null,
-            chance: null,
-            yahtzee: null,
-            yahtzeeBonus: 0 // Track Yahtzee bonus points if multiple Yahtzees
+            Ones: null,
+            Twos: null,
+            Threes: null,
+            Fours: null,
+            Fives: null,
+            Sixes: null,
+            ThreeOfAKind: null,
+            FourOfAKind: null,
+            FullHouse: null,
+            SmallStraight: null,
+            LargeStraight: null,
+            Chance: null,
+            Yahtzee: null,
+            YahtzeeBonus: 0 // Track Yahtzee bonus points if multiple Yahtzees
         };
     }
 
@@ -121,7 +109,7 @@ class YatzyScoreboard {
 
     // Calculate total score for the upper section (ones to sixes)
     calculateUpperSectionTotal() {
-        const upperSection = ['ones', 'twos', 'threes', 'fours', 'fives', 'sixes'];
+        const upperSection = ['Ones', 'Twos', 'Threes', 'Fours', 'Fives', 'Sixes'];
         return upperSection.reduce((total, category) => {
             return total + (this.scores[category] || 0);
         }, 0);
@@ -135,13 +123,13 @@ class YatzyScoreboard {
     // Calculate total score for the lower section
     calculateLowerSectionTotal() {
         const lowerSection = [
-            'threeOfAKind',
-            'fourOfAKind',
-            'fullHouse',
-            'smallStraight',
-            'largeStraight',
-            'chance',
-            'yahtzee'
+            'ThreeOfAKind',
+            'FourOfAKind',
+            'FullHouse',
+            'SmallStraight',
+            'LargeStraight',
+            'Chance',
+            'Yahtzee'
         ];
         return lowerSection.reduce((total, category) => {
             return total + (this.scores[category] || 0);
@@ -153,7 +141,8 @@ class YatzyScoreboard {
         const upperScore = this.calculateUpperSectionTotal();
         const upperBonus = this.calculateUpperSectionBonus();
         const lowerScore = this.calculateLowerSectionTotal();
-        return upperScore + upperBonus + lowerScore + this.scores.yahtzeeBonus;
+        console.log(upperScore, upperBonus, lowerScore)
+        return upperScore + upperBonus + lowerScore;
     }
 
     // Add Yahtzee bonus points (for multiple Yahtzees)
@@ -174,62 +163,102 @@ class YatzyScoreboard {
     }
 }
 
-// Example usage:
-const scoreboard = new YatzyScoreboard();
+//ScoreBoard Front End Logic
+const scoreboardPlayer1 = new YatzyScoreboard();
+const scoreboardPlayer2 = new YatzyScoreboard();
 
-// Add scores to categories
-scoreboard.addScore('ones', 3);          // 3 points in Ones
-scoreboard.addScore('twos', 6);          // 6 points in Twos
-scoreboard.addScore('threeOfAKind', 15); // 15 points in Three of a Kind
-scoreboard.addScore('fullHouse', 25);    // 25 points in Full House
-scoreboard.addScore('smallStraight', 30); // 30 points in Small Straight
+function ScoreBoardButtons(category) {
+    // No score can be made if no rolls have been made 
+    //Todo: cant be score if place has been choosen
+    if (NumberOfRolls < 1){
 
-// Add a Yahtzee and multiple Yahtzee bonuses
-scoreboard.addScore('yahtzee', 50);      // First Yahtzee, scores 50
-scoreboard.addYahtzeeBonus();            // Second Yahtzee, adds 100 bonus points
-scoreboard.addYahtzeeBonus();            // Third Yahtzee, adds another 100 bonus points
+    }else{
+        const yatzyChecker = new YatzyChecker(rollHistory.getHistory());
+        console.log("row " + category + " has been clicked");
+        // calucate score + add score to score broad object
+        score = yatzyChecker[category]();
+        const shorthand = category.slice(5);
+        console.log("Score for " + shorthand + " is " + score);
+        scoreboardPlayer1.addScore(shorthand, score);
+        // add score to html score broad
+        const cellId = shorthand + PlayerTurn;
+        console.log(cellId);
+        const cell = document.querySelector(`[data-cell="${cellId}"]`);
+        cell.textContent = score;
+        // update total score
+        const totalScore = scoreboardPlayer1.calculateTotalScore();
+        console.log(totalScore);
+        const Totalcell = document.querySelector(`[data-cell="Total1"]`);
+        Totalcell.textContent = totalScore;
 
-// Display the scoreboard and total score
-scoreboard.displayScoreboard();
+        endTurn();
+    }
+}
 
+
+
+//Roll Button Logic
 let rollHistory = new RollHistory();
 let roll = new Roll(); // Create a new roll instance
 
-//wont save frozen dice
 function RollButtonPlayer(buttonNumber) {
-    let SavedDie = [];
-    if (NumberOfRolls >= 1) {
-        FrozenDice.forEach(number => {
-            SavedDie.push(rollHistory[number]);
-        });}
-    
-    if (PlayerTurn != buttonNumber) {
+    if (PlayerTurn != buttonNumber || NumberOfRolls == 3) {
         console.log("Button Frozen");
-        console.log(rollHistory);
     }else{
+        //increment number of rolls
+        NumberOfRolls += 1;
+        console.log("Roll Number: " + NumberOfRolls);
+
         let diceOffset = 1;
         if (PlayerTurn == 2) {diceOffset += 5;}
-        
-        rollHistory.clearHistory();
 
-        // Roll multiple times and add each result to history
-        for (let i = 0; i < (5 - FrozenDice.length); i++) {
-            roll.roll(); // Generate a new roll
-            rollHistory.addRoll(roll.result); // Add the roll to history
+        // if its first turn roll all new dice otherwise roll all not frozen die
+        if (NumberOfRolls == 1){
+            for (let i = 0; i < 5; i++) {
+                roll.roll(); // Generate a new roll
+                rollHistory.addRoll(roll.result); // Add the roll to history
+            }
+        }else{
+            console.log("roll history before new dice " + rollHistory.getHistory());
+            //Keeps saved dice generates new dice if not saved
+            //offset for dice to save player 2 dice
+            if (PlayerTurn == 2) {
+                FrozenDice.forEach((num, index, arr) => {
+                    arr[index] = num - 5;
+                });
+                console.log(FrozenDice);
+            }
+            rollHistory.getHistory().forEach((number, index) => {
+                if (FrozenDice.indexOf((index + 1)) !== -1) {
+                    console.log("Dice Number " + index + " has been saved");
+                }else {
+                    roll.roll();
+                    console.log("Dice Number " + index + " is being rolled");
+                    rollHistory.getHistory()[index] = roll.result;
+                }
+            })
+        } 
+
+        //changes the dices pngs
+        //unoffset for dice to save player 2 dice
+        if (PlayerTurn == 2) {
+            FrozenDice.forEach((num, index, arr) => {
+                arr[index] = num + 5;
+            });
         }
-
-        const playersroll = SavedDie.concat(rollHistory.getHistory());
+        const playersroll = rollHistory.getHistory();
         console.log(playersroll);
 
         playersroll.forEach((number, index) => {
             const imageElement = document.getElementById("die" + (index + diceOffset));
             imageElement.src = "dice(" + number + ").png";
         });
-        NumberOfRolls += 1;
-        console.log("Roll Number: " + NumberOfRolls);
     }
 }
 
+
+
+// Freezing Dice Logic
 let FrozenDice = [];
 
 function FreezeDie(dieNumber) {
