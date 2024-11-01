@@ -173,22 +173,24 @@ function ScoreBoardButtons(category) {
     if (NumberOfRolls < 1){
 
     }else{
+        const currentScoreboard = PlayerTurn === 1 ? scoreboardPlayer1 : scoreboardPlayer2;
         const yatzyChecker = new YatzyChecker(rollHistory.getHistory());
         console.log("row " + category + " has been clicked");
         // calucate score + add score to score broad object
         score = yatzyChecker[category]();
         const shorthand = category.slice(5);
         console.log("Score for " + shorthand + " is " + score);
-        scoreboardPlayer1.addScore(shorthand, score);
+        currentScoreboard.addScore(shorthand, score);
         // add score to html score broad
         const cellId = shorthand + PlayerTurn;
         console.log(cellId);
         const cell = document.querySelector(`[data-cell="${cellId}"]`);
         cell.textContent = score;
         // update total score
-        const totalScore = scoreboardPlayer1.calculateTotalScore();
+        const totalScore = currentScoreboard.calculateTotalScore();
         console.log(totalScore);
-        const Totalcell = document.querySelector(`[data-cell="Total1"]`);
+        const TotalcellId = "Total" + PlayerTurn;
+        const Totalcell = document.querySelector(`[data-cell="${TotalcellId}"]`);
         Totalcell.textContent = totalScore;
 
         endTurn();
