@@ -91,13 +91,15 @@ class YatzyScoreboard {
             SmallStraight: null,
             LargeStraight: null,
             Chance: null,
-            Yahtzee: null,
-            YahtzeeBonus: 0 // Track Yahtzee bonus points if multiple Yahtzees
+            Yahtzee: null
         };
     }
 
     // Methods to add scores for each category
     addScore(category, score) {
+        if (category == 'Yahtzee' && this.scores['Yahtzee'] == 50) {
+            this.addYahtzeeBonus();
+        }
         if (this.scores[category] !== null) {
             throw new Error(`${category} has already been scored.`);
         }
@@ -147,7 +149,7 @@ class YatzyScoreboard {
 
     // Add Yahtzee bonus points (for multiple Yahtzees)
     addYahtzeeBonus() {
-        this.scores.yahtzeeBonus += 100;
+        this.scores.Yahtzee += 100;
     }
 
     // Display the scoreboard in console

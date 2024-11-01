@@ -69,7 +69,7 @@
                 <img onclick="FreezeDie(4)" id="die4" src="dice(1).png" alt="Die 4">
                 <img onclick="FreezeDie(5)" id="die5" src="dice(1).png" alt="Die 5">
             </div>
-            <button onclick="RollButtonPlayer(1)" class="roll">Roll Die</button>
+            <button id="player1Roll" onclick="RollButtonPlayer(1)" class="roll">Roll Die</button>
         </div>
 
         <!-- Player 2 Area -->
@@ -82,7 +82,7 @@
                 <img onclick="FreezeDie(9)" id="die9" src="dice(1).png" alt="Die 4">
                 <img onclick="FreezeDie(10)" id="die10" src="dice(1).png" alt="Die 5">
             </div>
-            <button onclick="RollButtonPlayer(2)" class="roll">Roll Die</button>
+            <button id="player2Roll" onclick="RollButtonPlayer(2)" class="roll">Roll Die</button>
         </div>
 
         <!-- Score Table -->
@@ -145,7 +145,7 @@
         <h3>Multiple Yahtzees</h3>
         <p>The rules for multiple Yahtzees involve specific cases:</p>
         <ul>
-            <li><strong>If you already have a Yahtzee:</strong> You get a 100-point bonus in the Yahtzee box and a "joker," allowing you to choose another move.</li>
+            <li><strong>If you already have a Yahtzee:</strong> You get a 100-point bonus in the Yahtzee box and a box will remain uncheck by the end of the game.</li>
             <li><strong>If you put 0 in the Yahtzee box:</strong> No 100-point bonus, but you still get a joker.</li>
         </ul>
 

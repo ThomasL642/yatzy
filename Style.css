@@ -105,6 +105,7 @@ main div button.roll {
     margin-top: 10px;
     cursor: pointer;
     border-radius: 5px;
+    filter: brightness(50%);
 }
 
 main div button.roll:hover {

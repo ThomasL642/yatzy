@@ -18,6 +18,8 @@ function startGame() {
         //Starting Player 1's Turn
         PlayerTurn += 1;
         startTurn();
+        const RollPlayer1Element = document.getElementById("player1Roll");
+        RollPlayer1Element.style.filter = "brightness(100%)";
     }
 
 function startTurn() {
@@ -36,12 +38,22 @@ function endTurn() {
 
     if (PlayerTurn == 2){ 
         PlayerTurn -= 1;
+        const RollPlayer1Element = document.getElementById("player1Roll");
+        RollPlayer1Element.style.filter = "brightness(100%)";
+        const RollPlayer2Element = document.getElementById("player2Roll");
+        RollPlayer2Element.style.filter = "brightness(50%)";
         totaLNumberOfTurns -= 1;
         if (totaLNumberOfTurns < 1) {
             endGame();
         }
     }
-    else {PlayerTurn += 1}
+    else {
+        PlayerTurn += 1;
+        const RollPlayer1Element = document.getElementById("player1Roll");
+        RollPlayer1Element.style.filter = "brightness(50%)";
+        const RollPlayer2Element = document.getElementById("player2Roll");
+        RollPlayer2Element.style.filter = "brightness(100%)";
+    }
     console.log("it is now Player " + PlayerTurn + "'s turn");
 }
 
