@@ -26,6 +26,12 @@ The game follows traditional Yatzy rules, with 13 rounds and one score selected 
 
 - **Header**: The game header, shown below, displays "Yatzee Game" on a vibrant green background. This area includes options for starting a "New Game" and viewing the "Rules," ensuring players have quick access to essential functions.
 
+![Header](Header.png)
+
 - **Game Layout**: In the gamespace each player has their own section labeled "Player 1" and "Player 2." Five dice are displayed in a row under each player's name, showing the current roll result. Each player also has a "Roll Die" button—Player 1’s is bright orange, while Player 2’s is a muted brown—to visually distinguish between player turns.
 
+![GameSpace](GameSpace.png)
+
 - **Scoreboard**: The scoreboard, illustrated below, lists the scoring categories in a green table with columns for each player. Each row shows the possible scoring categories, such as Ones, Twos, Three of a Kind, and so forth. At the bottom, there is a "Total Score" row where each player's cumulative score is displayed, making it easy to track progress.
+
+![ScoreBroad](ScoreBroad.png)
