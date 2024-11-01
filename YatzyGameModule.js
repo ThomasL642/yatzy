@@ -1,6 +1,13 @@
 let GameStarted = false;
 let PlayerTurn = 0;
 let NumberOfRolls = 0;
+let totaLNumberOfTurns = 13;
+
+function restartGame(){
+    location.reload();
+}
+
+window.restartGame = restartGame;
 
 function startGame() {
         GameStarted = true;
@@ -19,11 +26,6 @@ window.startGame = startGame;
 
 function startTurn() {
     console.log("Player " + PlayerTurn + "'s Turn");
-    
-    //Enable DiceRoll, Roll 1, enable freezing, Freeze Dice_1, Roll_2, Freeze Dice_2, Roll_3, Disable rolling, Pick Box, disable freezing, Score it, display and block off of table, Unable Dice, Next Turn
-
-    //Player 2 Turn
-    //Enable Dice, Roll, Freeze Dice, Roll, Freeze Dice, Roll, Pick Box, Score it, display and block off of table, Unable Dice, Next Turn(unless last roll)
 }
 
 window.startTurn = startTurn;
@@ -38,11 +40,53 @@ function endTurn() {
         imageElement.style.filter = "brightness(100%)";
     }
 
-    if (PlayerTurn == 2){ PlayerTurn -= 1 }
+    if (PlayerTurn == 2){ 
+        PlayerTurn -= 1;
+        totaLNumberOfTurns -= 1;
+        if (totaLNumberOfTurns < 1) {
+            endGame();
+        }
+    }
     else {PlayerTurn += 1}
-    console.log("it is now Player " + PlayerTurn + "'s turn")
+    console.log("it is now Player " + PlayerTurn + "'s turn");
 }
 
 window.endTurn = endTurn;
 
-function endGame() {}
+function endGame() {
+    console.log("endGame is called");
+    // make the end game pop appear
+    const endGamePopUp = document.getElementById("endGamePopUp");
+    endGamePopUp.style.display = "flex";
+
+    // Total Score Displayed
+    const player1FinalScore = document.getElementById("Player1Score");
+    console.log(scoreboardPlayer1.calculateTotalScore());
+    player1FinalScore.innerHTML = scoreboardPlayer1.calculateTotalScore();
+
+    const player2FinalScore = document.getElementById("Player2Score");
+    console.log(scoreboardPlayer2.calculateTotalScore());
+    player2FinalScore.innerHTML = scoreboardPlayer2.calculateTotalScore();
+    
+    // Congrats to Winner, Console Loser, or Tie
+    const winnerMessageText = document.getElementById("winnerMessage");
+    const loserMessageText = document.getElementById("loserMessage");
+
+    if (scoreboardPlayer1.calculateTotalScore() == scoreboardPlayer2.calculateTotalScore()){
+        winnerMessageText.innerHTML = "Its A Tie!";
+        loserMessageText.innerHTML = ""
+    }else{
+        if (scoreboardPlayer1.calculateTotalScore() > scoreboardPlayer2.calculateTotalScore()) {
+            winner = 1
+            loser = 2
+        }else{
+            winner = 2
+            loser = 1
+        }
+
+        winnerMessageText.innerHTML = "Congratulations Player " + winner + " You Won!";
+        loserMessageText.innerHTML = "Sorry Player " + loser + " You Lost!"
+    }
+}
+
+window.endGame = endGame;

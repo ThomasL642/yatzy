@@ -20,7 +20,7 @@
     <header>
         <h1>Yahtzee Game</h1>
         <nav>
-            <a href="#">New Game</a> |
+            <a onclick="restartGame()">New Game</a> |
             <a href="#rules">Rules</a> |
             <a href="#">About</a>
         </nav>
@@ -32,6 +32,27 @@
         <button>2 Players (local)</button> -->
         <button id="startButton" onclick="startGame()">Start Game</button>
     </section>
+
+    <div id="endGamePopUp" class="popup-overlay">
+        <div class="popup">
+            <div class="score-container">
+                <div>
+                    <div class="Player-label">Player 1</div>
+                    <div class="score-box" id="Player1Score">0</div>
+                </div>
+                <div>
+                    <div class="Player-label">Player 2</div>
+                    <div class="score-box" id="Player2Score">0</div>
+                </div>
+            </div>
+            <div class="message-container">
+                <div class="message" id="winnerMessage">Congrats</div>
+                <div class="message" id="loserMessage">Sorry</div>
+            </div>
+            <button class="new-game-btn" onclick="restartGame()">New Game</button>
+        </div>
+    </div>
+    
 
     <!-- Game Area -->
     <main>

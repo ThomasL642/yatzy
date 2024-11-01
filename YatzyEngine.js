@@ -150,7 +150,7 @@ class YatzyScoreboard {
         this.scores.yahtzeeBonus += 100;
     }
 
-    // Display the scoreboard
+    // Display the scoreboard in console
     displayScoreboard() {
         console.log("Yatzy Scoreboard:");
         Object.keys(this.scores).forEach(category => {
