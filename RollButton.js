@@ -52,7 +52,7 @@ function RollButtonPlayer(buttonNumber) {
 
         playersroll.forEach((number, index) => {
             const imageElement = document.getElementById("die" + (index + diceOffset));
-            imageElement.src = "dice(" + number + ").png";
+            imageElement.src = "Dice Assets/dice(" + number + ").png";
         });
     }
 }
