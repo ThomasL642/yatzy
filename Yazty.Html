@@ -2,10 +2,14 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Yahtzee Game</title>
+    <title>2 Player Local Yahtzee</title>
     <link rel="stylesheet" href="style.css">
     <script src="Dice.js"></script>
     <script src="YatzyEngine.js"></script>
+    <script src="YatzyGameModule.js"></script>
+    <script src="FreezeDie.js"></script>
+    <script src="RollButton.js"></script>
+    <script src="ScoreBoardButtons.js"></script>
 </head>
 <body>
 
@@ -17,47 +21,68 @@
 
     <!-- Header with Menu Options -->
     <header>
-        <h1>Yahtzee Game</h1>
+        <h1>2 Player Local Yahtzee</h1>
         <nav>
-            <a href="#">New Game</a> |
-            <a href="#rules">Rules</a> |
-            <a href="#">About</a>
+            <a onclick="restartGame()">New Game</a> |
+            <a href="#rules">Rules</a> 
         </nav>
     </header>
 
     <!-- Player Selection -->
-    <!-- <section>
-        <button>1 Player</button>
-        <button>2 Players (local)</button>
-    </section> -->
+    <section>
+        <!--<button>1 Player</button>
+        <button>2 Players (local)</button> -->
+        <button id="startButton" onclick="startGame()">Start Game</button>
+    </section>
+
+    <div id="endGamePopUp" class="popup-overlay">
+        <div class="popup">
+            <div class="score-container">
+                <div>
+                    <div class="Player-label">Player 1</div>
+                    <div class="score-box" id="Player1Score">0</div>
+                </div>
+                <div>
+                    <div class="Player-label">Player 2</div>
+                    <div class="score-box" id="Player2Score">0</div>
+                </div>
+            </div>
+            <div class="message-container">
+                <div class="message" id="winnerMessage">Congrats</div>
+                <div class="message" id="loserMessage">Sorry</div>
+            </div>
+            <button class="new-game-btn" onclick="restartGame()">New Game</button>
+        </div>
+    </div>
+    
 
     <!-- Game Area -->
     <main>
-
-        <!-- User 1 Area -->
+        
+        <!-- Player 1 Area -->
         <div>
-            <h2>User 1</h2>
+            <h2>Player 1</h2>
             <div>
-                <img id="die1" src="dice(1).png" alt="Die 1">
-                <img id="die2" src="dice(1).png" alt="Die 2">
-                <img id="die3" src="dice(1).png" alt="Die 3">
-                <img id="die4" src="dice(1).png" alt="Die 4">
-                <img id="die5" src="dice(1).png" alt="Die 5">
+                <img onclick="FreezeDie(1)" id="die1" src="Dice Assets/dice(1).png" alt="Die 1">
+                <img onclick="FreezeDie(2)" id="die2" src="Dice Assets/dice(1).png" alt="Die 2">
+                <img onclick="FreezeDie(3)" id="die3" src="Dice Assets/dice(1).png" alt="Die 3">
+                <img onclick="FreezeDie(4)" id="die4" src="Dice Assets/dice(1).png" alt="Die 4">
+                <img onclick="FreezeDie(5)" id="die5" src="Dice Assets/dice(1).png" alt="Die 5">
             </div>
-            <button onclick="RollButtonPlayer1()" class="roll">Roll Die</button>
+            <button id="player1Roll" onclick="RollButtonPlayer(1)" class="roll">Roll Die</button>
         </div>
 
-        <!-- User 2 Area -->
+        <!-- Player 2 Area -->
         <div>
-            <h2>User 2</h2>
+            <h2>Player 2</h2>
             <div>
-                <img id="die6" src="dice(1).png" alt="Die 1">
-                <img id="die7" src="dice(1).png" alt="Die 2">
-                <img id="die8" src="dice(1).png" alt="Die 3">
-                <img id="die9" src="dice(1).png" alt="Die 4">
-                <img id="die10" src="dice(1).png" alt="Die 5">
+                <img onclick="FreezeDie(6)" id="die6" src="Dice Assets/dice(1).png" alt="Die 1">
+                <img onclick="FreezeDie(7)" id="die7" src="Dice Assets/dice(1).png" alt="Die 2">
+                <img onclick="FreezeDie(8)" id="die8" src="Dice Assets/dice(1).png" alt="Die 3">
+                <img onclick="FreezeDie(9)" id="die9" src="Dice Assets/dice(1).png" alt="Die 4">
+                <img onclick="FreezeDie(10)" id="die10" src="Dice Assets/dice(1).png" alt="Die 5">
             </div>
-            <button onclick="RollButtonPlayer2()" class="roll">Roll Die</button>
+            <button id="player2Roll" onclick="RollButtonPlayer(2)" class="roll">Roll Die</button>
         </div>
 
         <!-- Score Table -->
@@ -67,22 +92,22 @@
                 <th>Player 1</th>
                 <th>Player 2</th>
             </tr>
-            <tr><td>Ones</td><td></td><td></td></tr>
-            <tr><td>Twos</td><td></td><td></td></tr>
-            <tr><td>Threes</td><td></td><td></td></tr>
-            <tr><td>Fours</td><td></td><td></td></tr>
-            <tr><td>Fives</td><td></td><td></td></tr>
-            <tr><td>Sixes</td><td></td><td></td></tr>
-            <tr><td>Sum</td><td></td><td></td></tr>
-            <tr><td>Bonus</td><td></td><td></td></tr>
-            <tr><td>Three of a kind</td><td></td><td></td></tr>
-            <tr><td>Four of a kind</td><td></td><td></td></tr>
-            <tr><td>Full House</td><td></td><td></td></tr>
-            <tr><td>Small Straight</td><td></td><td></td></tr>
-            <tr><td>Large Straight</td><td></td><td></td></tr>
-            <tr><td>Chance</td><td></td><td></td></tr>
-            <tr><td>YAHTZEE</td><td></td><td></td></tr>
-            <tr><td>Total Score</td><td></td><td></td></tr>
+            <tr onclick="ScoreBoardButtons('scoreOnes')"><td>Ones</td><td data-cell="Ones1">X</td><td data-cell="Ones2">X</td></tr>
+            <tr onclick="ScoreBoardButtons('scoreTwos')"><td>Twos</td><td data-cell="Twos1">X</td><td data-cell="Twos2">X</td></tr>
+            <tr onclick="ScoreBoardButtons('scoreThrees')"><td>Threes</td><td data-cell="Threes1">X</td><td data-cell="Threes2">X</td></tr>
+            <tr onclick="ScoreBoardButtons('scoreFours')"><td>Fours</td><td data-cell="Fours1">X</td><td data-cell="Fours2">X</td></tr>
+            <tr onclick="ScoreBoardButtons('scoreFives')"><td>Fives</td><td data-cell="Fives1">X</td><td data-cell="Fives2">X</td></tr>
+            <tr onclick="ScoreBoardButtons('scoreSixes')"><td>Sixes</td><td data-cell="Sixes1">X</td><td data-cell="Sixes2">X</td></tr>
+            <tr><td>Sum</td><td data-cell="Sum1">X</td><td data-cell="Sum2">X</td></tr>
+            <tr><td>Bonus</td><td data-cell="Bonus1">X</td><td data-cell="Bonus2">X</td></tr>
+            <tr onclick="ScoreBoardButtons('scoreThreeOfAKind')"><td>Three of a kind</td><td data-cell="ThreeOfAKind1">X</td><td data-cell="ThreeOfAKind2">X</td></tr>
+            <tr onclick="ScoreBoardButtons('scoreFourOfAKind')"><td>Four of a kind</td><td data-cell="FourOfAKind1">X</td><td data-cell="FourOfAKind2">X</td></tr>
+            <tr onclick="ScoreBoardButtons('scoreFullHouse')"><td>Full House</td><td data-cell="FullHouse1">X</td><td data-cell="FullHouse2">X</td></tr>
+            <tr onclick="ScoreBoardButtons('scoreSmallStraight')"><td>Small Straight</td><td data-cell="SmallStraight1">X</td><td data-cell="SmallStraight2">X</td></tr>
+            <tr onclick="ScoreBoardButtons('scoreLargeStraight')"><td>Large Straight</td><td data-cell="LargeStraight1">X</td><td data-cell="LargeStraight2">X</td></tr>
+            <tr onclick="ScoreBoardButtons('scoreChance')"><td>Chance</td><td data-cell="Chance1">X</td><td data-cell="Chance2">X</td></tr>
+            <tr onclick="ScoreBoardButtons('scoreYahtzee')"><td>YAHTZEE</td><td data-cell="Yahtzee1">X</td><td data-cell="Yahtzee2">X</td></tr>
+            <tr><td>Total Score</td><td data-cell="Total1">X</td><td data-cell="Total2">X</td></tr>
         </table>
 
     </main>
@@ -93,7 +118,7 @@
         <p><strong>The objective of YAHTZEE</strong> is to get as many points as possible by rolling five dice and getting certain combinations of dice.</p>
         <h3>Gameplay</h3>
         <p>In each turn a player may throw the dice up to three times. A player doesn't have to roll all five dice on the second and third throw of a round; they may put as many dice as they want aside and only throw the ones that don't have the numbers they're trying to get. For example, a player throws and gets 1,3,3,4,6. They decide to try for the large straight, 1,2,3,4,5, so they put 1,3,4 aside and only throw 3 and 6 again, hoping to get 2 and 5.</p>
-        <p>In this game, you click on the dice you want to keep. They will change color and will not be thrown the next time you press the 'Roll Dice' button. If you decide after the second throw in a turn that you don't want to keep the same dice before the third throw, then you can click them again, and they will move back to the table and be thrown in the third throw.</p>
+        <p>In this game, you click on the dice you want to keep. They will change color and will not be thrown the next time you press the 'Roll Dice' button. If you decide after the second throw in a turn that you don't want to keep the same dice before the third throw, then you can click them again, and they will change color back to the table and be thrown in the third throw.</p>
         
         <h3>Upper Section Combinations</h3>
         <ul>
@@ -120,7 +145,7 @@
         <h3>Multiple Yahtzees</h3>
         <p>The rules for multiple Yahtzees involve specific cases:</p>
         <ul>
-            <li><strong>If you already have a Yahtzee:</strong> You get a 100-point bonus in the Yahtzee box and a "joker," allowing you to choose another move.</li>
+            <li><strong>If you already have a Yahtzee:</strong> You get a 100-point bonus in the Yahtzee box and a box will remain uncheck by the end of the game.</li>
             <li><strong>If you put 0 in the Yahtzee box:</strong> No 100-point bonus, but you still get a joker.</li>
         </ul>
 

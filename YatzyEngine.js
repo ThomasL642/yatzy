@@ -1,6 +1,8 @@
+//ScoreBoard Calculator
 class YatzyChecker {
     constructor(dice) {
         if (dice.length !== 5 || !dice.every(num => num >= 1 && num <= 6)) {
+            console.log("dice is " + dice + "and length is " + dice.length);
             throw new Error("Invalid dice list");
         }
         this.dice = dice;
@@ -72,44 +74,32 @@ class YatzyChecker {
     }
 }
 
-// Example usage:
-const dice = [3, 5, 5, 5, 6];
-const yatzyChecker = new YatzyChecker(dice);
-
-console.log("Ones:", yatzyChecker.scoreOnes());
-console.log("Twos:", yatzyChecker.scoreTwos());
-console.log("Threes:", yatzyChecker.scoreThrees());
-console.log("Three of a Kind:", yatzyChecker.scoreThreeOfAKind());
-console.log("Four of a Kind:", yatzyChecker.scoreFourOfAKind());
-console.log("Full House:", yatzyChecker.scoreFullHouse());
-console.log("Small Straight:", yatzyChecker.scoreSmallStraight());
-console.log("Large Straight:", yatzyChecker.scoreLargeStraight());
-console.log("Chance:", yatzyChecker.scoreChance());
-console.log("Yahtzee:", yatzyChecker.scoreYahtzee());
-
+//ScoreBoard object
 class YatzyScoreboard {
     constructor() {
         // Initialize all categories with null (unscored)
         this.scores = {
-            ones: null,
-            twos: null,
-            threes: null,
-            fours: null,
-            fives: null,
-            sixes: null,
-            threeOfAKind: null,
-            fourOfAKind: null,
-            fullHouse: null,
-            smallStraight: null,
-            largeStraight: null,
-            chance: null,
-            yahtzee: null,
-            yahtzeeBonus: 0 // Track Yahtzee bonus points if multiple Yahtzees
+            Ones: null,
+            Twos: null,
+            Threes: null,
+            Fours: null,
+            Fives: null,
+            Sixes: null,
+            ThreeOfAKind: null,
+            FourOfAKind: null,
+            FullHouse: null,
+            SmallStraight: null,
+            LargeStraight: null,
+            Chance: null,
+            Yahtzee: null
         };
     }
 
     // Methods to add scores for each category
     addScore(category, score) {
+        if (category == 'Yahtzee' && this.scores['Yahtzee'] == 50) {
+            this.addYahtzeeBonus();
+        }
         if (this.scores[category] !== null) {
             throw new Error(`${category} has already been scored.`);
         }
@@ -121,7 +111,7 @@ class YatzyScoreboard {
 
     // Calculate total score for the upper section (ones to sixes)
     calculateUpperSectionTotal() {
-        const upperSection = ['ones', 'twos', 'threes', 'fours', 'fives', 'sixes'];
+        const upperSection = ['Ones', 'Twos', 'Threes', 'Fours', 'Fives', 'Sixes'];
         return upperSection.reduce((total, category) => {
             return total + (this.scores[category] || 0);
         }, 0);
@@ -135,13 +125,13 @@ class YatzyScoreboard {
     // Calculate total score for the lower section
     calculateLowerSectionTotal() {
         const lowerSection = [
-            'threeOfAKind',
-            'fourOfAKind',
-            'fullHouse',
-            'smallStraight',
-            'largeStraight',
-            'chance',
-            'yahtzee'
+            'ThreeOfAKind',
+            'FourOfAKind',
+            'FullHouse',
+            'SmallStraight',
+            'LargeStraight',
+            'Chance',
+            'Yahtzee'
         ];
         return lowerSection.reduce((total, category) => {
             return total + (this.scores[category] || 0);
@@ -153,15 +143,16 @@ class YatzyScoreboard {
         const upperScore = this.calculateUpperSectionTotal();
         const upperBonus = this.calculateUpperSectionBonus();
         const lowerScore = this.calculateLowerSectionTotal();
-        return upperScore + upperBonus + lowerScore + this.scores.yahtzeeBonus;
+        console.log(upperScore, upperBonus, lowerScore)
+        return upperScore + upperBonus + lowerScore;
     }
 
     // Add Yahtzee bonus points (for multiple Yahtzees)
     addYahtzeeBonus() {
-        this.scores.yahtzeeBonus += 100;
+        this.scores.Yahtzee += 100;
     }
 
-    // Display the scoreboard
+    // Display the scoreboard in console
     displayScoreboard() {
         console.log("Yatzy Scoreboard:");
         Object.keys(this.scores).forEach(category => {
@@ -172,63 +163,4 @@ class YatzyScoreboard {
         console.log(`Lower Section Total: ${this.calculateLowerSectionTotal()}`);
         console.log(`Total Score: ${this.calculateTotalScore()}`);
     }
-}
-
-// Example usage:
-const scoreboard = new YatzyScoreboard();
-
-// Add scores to categories
-scoreboard.addScore('ones', 3);          // 3 points in Ones
-scoreboard.addScore('twos', 6);          // 6 points in Twos
-scoreboard.addScore('threeOfAKind', 15); // 15 points in Three of a Kind
-scoreboard.addScore('fullHouse', 25);    // 25 points in Full House
-scoreboard.addScore('smallStraight', 30); // 30 points in Small Straight
-
-// Add a Yahtzee and multiple Yahtzee bonuses
-scoreboard.addScore('yahtzee', 50);      // First Yahtzee, scores 50
-scoreboard.addYahtzeeBonus();            // Second Yahtzee, adds 100 bonus points
-scoreboard.addYahtzeeBonus();            // Third Yahtzee, adds another 100 bonus points
-
-// Display the scoreboard and total score
-scoreboard.displayScoreboard();
-
-
-function RollButtonPlayer1() {
-    const roll = new Roll(); // Create a new roll instance
-    const rollHistory = new RollHistory(); // Create a new roll history instance
-
-    // Roll multiple times and add each result to history
-    for (let i = 0; i < 5; i++) {
-        roll.roll(); // Generate a new roll
-        rollHistory.addRoll(roll.result); // Add the roll to history
-    }
-
-    const playersroll = rollHistory.getHistory();
-    console.log(playersroll);
-
-    playersroll.forEach((number, index) => {
-        console.log(number, index); 
-        const imageElement = document.getElementById("die" + (index + 1));
-        imageElement.src = "dice(" + number + ").png";
-    });
-}
-
-function RollButtonPlayer2() {
-    const roll = new Roll(); // Create a new roll instance
-    const rollHistory = new RollHistory(); // Create a new roll history instance
-
-    // Roll multiple times and add each result to history
-    for (let i = 0; i < 5; i++) {
-        roll.roll(); // Generate a new roll
-        rollHistory.addRoll(roll.result); // Add the roll to history
-    }
-
-    const playersroll = rollHistory.getHistory();
-    console.log(playersroll);
-
-    playersroll.forEach((number, index) => {
-        console.log(number, index); 
-        const imageElement = document.getElementById("die" + (index + 6));
-        imageElement.src = "dice(" + number + ").png";
-    });
 }
