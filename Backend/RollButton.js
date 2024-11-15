@@ -50,13 +50,14 @@ function RollButtonPlayer(buttonNumber) {
         const playersroll = rollHistory.getHistory();
         console.log(playersroll);
 
-        playersroll.forEach((number, index) => {
-            animateDieRoll(number, index+diceOffset)
-        });
+        //Animate Roll
+        //playersroll.forEach((number, index) => {
+        //    animateDieRoll(number, index+diceOffset)
+        //});
 
-        playersroll.forEach((number, index) => {
-            const imageElement = document.getElementById("die" + (index + diceOffset));
-            imageElement.src = "Dice Assets/dice(" + number + ").png";
-        });
+        //playersroll.forEach((number, index) => {
+        //    const imageElement = document.getElementById("die" + (index + diceOffset));
+        //    imageElement.src = "Dice Assets/dice(" + number + ").png";
+        //});
     }
 }
