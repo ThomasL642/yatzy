@@ -12,7 +12,7 @@ function startGame() {
         // Game Starts
         console.log("Game started! = " + GameStarted);
         // Hide the start button after it’s clicked
-        const startButton = document.getElementById("startButton");
+        const startButton = document.getElementById('startButton');
         startButton.style.display = "none";
 
         //Starting Player 1's Turn
