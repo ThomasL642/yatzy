@@ -1,13 +1,5 @@
 [
   {
-    "name": "GameStarted",
-    "value": true
-  },
-  {
-    "name": "PlayerTurn",
-    "value": 2
-  },
-  {
     "name": "NumberOfRolls",
     "value": 0
   },

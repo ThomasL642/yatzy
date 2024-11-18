@@ -45,25 +45,51 @@ async function updateValue(name, newValue) {
     }
 }
 
-async function compareValues(name1, name2) {
+async function addData(name, value) {
     try {
-        const value1 = await fetchValue(name1);
-        const value2 = await fetchValue(name2);
+        const response = await fetch('http://localhost:3000/data', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ name, value }),
+        });
 
-        if (value1 > value2) {
-            console.log(`${name1} (${value1}) is greater than ${name2} (${value2})`);
-        } else if (value1 < value2) {
-            console.log(`${name1} (${value1}) is less than ${name2} (${value2})`);
-        } else {
-            console.log(`${name1} (${value1}) is equal to ${name2} (${value2})`);
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
         }
+
+        const result = await response.json();
+        console.log('Data added:', result);
+        return result;
     } catch (error) {
-        console.error('Error comparing values:', error);
+        console.error('Error adding data:', error);
     }
 }
+
+async function deleteData(name) {
+    try {
+        const response = await fetch(`http://localhost:3000/data/${name}`, {
+            method: 'DELETE',
+        });
+
+        if (!response.ok) {
+            throw new Error(`Error: ${response.status} - ${response.statusText}`);
+        }
+
+        const result = await response.json();
+        console.log('Data deleted:', result);
+        return result;
+    } catch (error) {
+        console.error('Error deleting data:', error);
+    }
+}
+
+
 
 window.fetchAllData = fetchAllData;
 window.fetchValue = fetchValue;
 window.updateValue = updateValue;
-window.compareValues = compareValues;
+window.addData = addData;
+window.deleteData = deleteData;
 

@@ -6,65 +6,67 @@
 // window.fetchAllData = fetchAllData;
 // window.fetchValue = fetchValue;
 // window.updateValue = updateValue;
-// window.compareValues = compareValues;
 
 function restartGame(){
     location.reload();
 }
 
-function startGame() {
-        //GameStarted = true;
-        updateData("GameStarted", true);
-        // Game Starts
-        //console.log("Game started! = " + GameStarted);
+async function startGame() {
         // Hide the start button after it’s clicked
         const startButton = document.getElementById('startButton');
         startButton.style.display = "none";
 
         //Starting Player 1's Turn
-        incrementValue("PlayerTurn");
-        startTurn();
+        await addData("PlayerTurn", 1);
+        await addData("FrozenDice", []);
         const RollPlayer1Element = document.getElementById("player1Roll");
         RollPlayer1Element.style.filter = "brightness(100%)";
+        startTurn();
     }
 
 function startTurn() {
     //console.log("Player " + PlayerTurn + "'s Turn");
-    console.log(fetchById("PlayerTurn"));
+    //const turn = fetchValue('PlayerTurn');
+    //console.log(turn);
 }
 
-function endTurn() {
+async function endTurn() {
     //clear historys for new turn
     rollHistory.clearHistory();
-    //NumberOfRolls = 0;
-    while (FrozenDice.length > 0) {
-        const dieNumber = FrozenDice.shift(); 
+    await updateValue("NumberOfRolls", 0);
+    TempFrozenDice = await fetchValue("FrozenDice");
+    while (TempFrozenDice.length > 0) {
+        const dieNumber = TempFrozenDice.shift(); 
         const imageElement = document.getElementById("die" + dieNumber);
         imageElement.style.filter = "brightness(100%)";
     }
-
-    if (PlayerTurn == 2){ 
-        PlayerTurn -= 1;
+    await updateValue("FrozenDice", []);
+    TempPlayerTurn = await fetchValue("PlayerTurn");
+    if (TempPlayerTurn == 2){ 
+        TempPlayerTurn -= 1;
         const RollPlayer1Element = document.getElementById("player1Roll");
         RollPlayer1Element.style.filter = "brightness(100%)";
         const RollPlayer2Element = document.getElementById("player2Roll");
         RollPlayer2Element.style.filter = "brightness(50%)";
-        incrementValue("numberOfTurns");
-        //totaLNumberOfTurns -= 1;
-        if (totaLNumberOfTurns > 12) {
+        TempNumberOfTurns = await fetchValue("numberOfTurns");
+        TempNumberOfTurns += 1;
+        await updateValue("numberOfTurns", TempNumberOfTurns);
+        if (TempNumberOfTurns > 12) {
             endGame();
         }
     }
     else {
-        PlayerTurn += 1;
+        TempPlayerTurn += 1;
+        updateValue("PlayerTurn", TempPlayerTurn);
         const RollPlayer1Element = document.getElementById("player1Roll");
         RollPlayer1Element.style.filter = "brightness(50%)";
         const RollPlayer2Element = document.getElementById("player2Roll");
         RollPlayer2Element.style.filter = "brightness(100%)";
     }
-    console.log("it is now Player " + PlayerTurn + "'s turn");
+    console.log("it is now Player " + TempPlayerTurn + "'s turn");
 }
 
+// TODO: Redo endturn with http methods
 function endGame() {
     console.log("endGame is called");
     // make the end game pop appear
