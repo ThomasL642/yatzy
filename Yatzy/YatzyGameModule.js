@@ -1,35 +1,42 @@
-let GameStarted = false;
-let PlayerTurn = 0;
-let NumberOfRolls = 0;
-let totaLNumberOfTurns = 13;
+// let GameStarted = false;
+// let PlayerTurn = 0;
+// let NumberOfRolls = 0;
+// let totaLNumberOfTurns = 13;
+
+// window.fetchAllData = fetchAllData;
+// window.fetchValue = fetchValue;
+// window.updateValue = updateValue;
+// window.compareValues = compareValues;
 
 function restartGame(){
     location.reload();
 }
 
 function startGame() {
-        GameStarted = true;
+        //GameStarted = true;
+        updateData("GameStarted", true);
         // Game Starts
-        console.log("Game started! = " + GameStarted);
+        //console.log("Game started! = " + GameStarted);
         // Hide the start button after it’s clicked
         const startButton = document.getElementById('startButton');
         startButton.style.display = "none";
 
         //Starting Player 1's Turn
-        PlayerTurn += 1;
+        incrementValue("PlayerTurn");
         startTurn();
         const RollPlayer1Element = document.getElementById("player1Roll");
         RollPlayer1Element.style.filter = "brightness(100%)";
     }
 
 function startTurn() {
-    console.log("Player " + PlayerTurn + "'s Turn");
+    //console.log("Player " + PlayerTurn + "'s Turn");
+    console.log(fetchById("PlayerTurn"));
 }
 
 function endTurn() {
     //clear historys for new turn
     rollHistory.clearHistory();
-    NumberOfRolls = 0;
+    //NumberOfRolls = 0;
     while (FrozenDice.length > 0) {
         const dieNumber = FrozenDice.shift(); 
         const imageElement = document.getElementById("die" + dieNumber);
@@ -42,8 +49,9 @@ function endTurn() {
         RollPlayer1Element.style.filter = "brightness(100%)";
         const RollPlayer2Element = document.getElementById("player2Roll");
         RollPlayer2Element.style.filter = "brightness(50%)";
-        totaLNumberOfTurns -= 1;
-        if (totaLNumberOfTurns < 1) {
+        incrementValue("numberOfTurns");
+        //totaLNumberOfTurns -= 1;
+        if (totaLNumberOfTurns > 12) {
             endGame();
         }
     }

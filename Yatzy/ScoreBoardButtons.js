@@ -13,7 +13,7 @@ function ScoreBoardButtons(category) {
         // calucate score + add score to score broad object
         score = yatzyChecker[category]();
         const shorthand = category.slice(5);
-        currentScoreboard.addScore(shorthand, score);
+        currentScoreboard.addScore(shorthand, score);  ////this line adds to score 
         // add score to html score broad
         const cellId = shorthand + PlayerTurn;
         const cell = document.querySelector(`[data-cell="${cellId}"]`);
