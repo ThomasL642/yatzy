@@ -15,6 +15,10 @@ async function startGame() {
         // Hide the start button after it’s clicked
         const startButton = document.getElementById('startButton');
         startButton.style.display = "none";
+        await addData("NumberOfRolls", 0);
+        await addData("numberOfTurns", 0);
+        await addData("scoreboardPlayer1", new YatzyScoreboard());
+        await addData("scoreboardPlayer2", new YatzyScoreboard());
 
         //Starting Player 1's Turn
         await addData("PlayerTurn", 1);
@@ -32,7 +36,7 @@ function startTurn() {
 
 async function endTurn() {
     //clear historys for new turn
-    rollHistory.clearHistory();
+    await rollHistory.clearHistory();
     await updateValue("NumberOfRolls", 0);
     TempFrozenDice = await fetchValue("FrozenDice");
     while (TempFrozenDice.length > 0) {
@@ -44,6 +48,7 @@ async function endTurn() {
     TempPlayerTurn = await fetchValue("PlayerTurn");
     if (TempPlayerTurn == 2){ 
         TempPlayerTurn -= 1;
+        updateValue("PlayerTurn", TempPlayerTurn);
         const RollPlayer1Element = document.getElementById("player1Roll");
         RollPlayer1Element.style.filter = "brightness(100%)";
         const RollPlayer2Element = document.getElementById("player2Roll");
@@ -67,8 +72,12 @@ async function endTurn() {
 }
 
 // TODO: Redo endturn with http methods
-function endGame() {
+async function endGame() {
     console.log("endGame is called");
+    scoreboardPlayer1 = await fetchValue("scoreboardPlayer1");
+    scoreboardPlayer2 = await fetchValue("scoreboardPlayer2");
+    scoreboardPlayer1 = Object.assign(new YatzyScoreboard(), scoreboardPlayer1);
+    scoreboardPlayer2 = Object.assign(new YatzyScoreboard(), scoreboardPlayer2);
     // make the end game pop appear
     const endGamePopUp = document.getElementById("endGamePopUp");
     endGamePopUp.style.display = "flex";
@@ -101,6 +110,13 @@ function endGame() {
         winnerMessageText.innerHTML = "Congratulations Player " + winner + " You Won!";
         loserMessageText.innerHTML = "Sorry Player " + loser + " You Lost!"
     }
+    await deleteData("RollHistory");
+    await deleteData("NumberOfRolls");
+    await deleteData("numberOfTurns");
+    await deleteData("scoreboardPlayer1");
+    await deleteData("scoreboardPlayer2");
+    await deleteData("PlayerTurn");
+    await deleteData("FrozenDice");
 }
 
 window.restartGame = restartGame;

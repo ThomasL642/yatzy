@@ -1,7 +1,3 @@
-//Roll Button Logic
-let rollHistory = new RollHistory();
-let roll = new Roll(); // Create a new roll instance
-
 async function RollButtonPlayer(buttonNumber) {
     TempNumberOfRolls = await fetchValue("NumberOfRolls");
     TempPlayerTurn = await fetchValue("PlayerTurn");
@@ -10,7 +6,7 @@ async function RollButtonPlayer(buttonNumber) {
     }else{
         //increment number of rolls
         TempNumberOfRolls += 1;
-        updateValue("NumberOfRolls", TempNumberOfRolls);
+        await updateValue("NumberOfRolls", TempNumberOfRolls);
         console.log("Roll Number: " + TempNumberOfRolls);
 
         //Offset the dice if player 2 turn
@@ -20,11 +16,11 @@ async function RollButtonPlayer(buttonNumber) {
         // if its first turn roll all new dice otherwise roll all not frozen die
         if (TempNumberOfRolls == 1){
             for (let i = 0; i < 5; i++) {
-                roll.roll(); // Generate a new roll
-                rollHistory.addRoll(roll.result); // Add the roll to history
+                await dice.roll(); // Generate a new roll
+                await rollHistory.addRoll(dice.result); // Add the roll to history
             }
         }else{
-            console.log("roll history before new dice " + rollHistory.getHistory());
+            //console.log("roll history before new dice " + rollHistory.getHistory());
             //Keeps saved dice generates new dice if not saved
             //offset for dice to save player 2 dice
             TempFrozenDice = await fetchValue("FrozenDice");
@@ -34,26 +30,29 @@ async function RollButtonPlayer(buttonNumber) {
                 });
                 console.log(TempFrozenDice);
             }
-            rollHistory.getHistory().forEach((number, index) => {
+            const playersroll = await rollHistory.getHistory()
+            playersroll.forEach((number, index) => {
                 if (TempFrozenDice.indexOf((index + 1)) !== -1) {
                     console.log("Dice Number " + index + " has been saved");
                 }else {
-                    roll.roll();
+                    dice.roll();
                     console.log("Dice Number " + index + " is being rolled");
-                    rollHistory.getHistory()[index] = roll.result;
+                    playersroll[index] = dice.result;
+                    //rollHistory.getHistory()[index] = dice.result;
                 }
             })
+            await updateValue("RollHistory", playersroll);
         } 
 
         //changes the dices pngs
         //unoffset for dice to save player 2 dice
         if (TempPlayerTurn == 2) {
-            FrozenDice.forEach((num, index, arr) => {
+            TempFrozenDice.forEach((num, index, arr) => {
                 arr[index] = num + 5;
             });
         }
-        const playersroll = rollHistory.getHistory();
-        console.log(playersroll);
+        const playersroll = await rollHistory.getHistory();
+        console.log("PlayersRoll " + playersroll);
 
         //Animate Roll
 

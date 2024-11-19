@@ -1,6 +1,6 @@
 //ScoreBoard Front End Logic
-const scoreboardPlayer1 = new YatzyScoreboard();
-const scoreboardPlayer2 = new YatzyScoreboard();
+//const scoreboardPlayer1 = new YatzyScoreboard();
+//const scoreboardPlayer2 = new YatzyScoreboard();
 
 async function ScoreBoardButtons(category) {
     // No score can be made if no rolls have been made 
@@ -9,8 +9,14 @@ async function ScoreBoardButtons(category) {
 
     }else{
         TempPlayersTurn = await fetchValue("PlayerTurn");
-        const currentScoreboard = TempPlayersTurn === 1 ? scoreboardPlayer1 : scoreboardPlayer2;
-        const yatzyChecker = new YatzyChecker(rollHistory.getHistory());
+        let currentScoreboard = TempPlayersTurn === 1 ? await fetchValue("scoreboardPlayer1") : await fetchValue("scoreboardPlayer2");
+        // Rehydrate into YatzyScoreboard instance
+        currentScoreboard = Object.assign(new YatzyScoreboard(), currentScoreboard);
+        
+        console.log(currentScoreboard);
+        console.log(currentScoreboard instanceof YatzyScoreboard);
+        const playersroll = await rollHistory.getHistory();
+        const yatzyChecker = new YatzyChecker(playersroll);
         // calucate score + add score to score broad object
         score = yatzyChecker[category]();
         const shorthand = category.slice(5);
@@ -35,6 +41,7 @@ async function ScoreBoardButtons(category) {
             const bonusCell = document.querySelector(`[data-cell="${bonusCellId}"]`);
             bonusCell.textContent = 35;
         }
+        TempPlayersTurn === 1 ? await updateValue("scoreboardPlayer1", currentScoreboard) : await updateValue("scoreboardPlayer2", currentScoreboard); 
 
         endTurn();
     }

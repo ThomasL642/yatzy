@@ -1,10 +1,6 @@
 [
   {
-    "name": "NumberOfRolls",
-    "value": 0
-  },
-  {
-    "name": "numberOfTurns",
-    "value": 0
+    "name": "RollHistory",
+    "value": []
   }
 ]
