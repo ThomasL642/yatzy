@@ -4,9 +4,9 @@
 This repository contains a Yatzy game implemented in HTML, CSS, and JavaScript. The game simulates the classic dice game "Yatzy," where players roll dice to achieve specific combinations for points. This **Yatzy game** with server-side logic is implemented using Node.js and Express. It demonstrates my skills in back-end development, game state management, and API integration.
 
 ## 🛠️ Features
-- ["Server-side game logic for managing multiple player states."]
-- ["API integration for communicating game updates to the server."]
-- ["Client-side interface for user-friendly gameplay."]
+- Server-side game logic for managing multiple player states.
+- API integration for communicating game updates to the server.
+- Client-side interface for user-friendly gameplay.
 
 ## 🔧 Installation & Usage
 
@@ -52,7 +52,7 @@ The game follows traditional Yatzy rules, with 13 rounds and one score selected 
 
 ![ScoreBroad](MockupImages/ScoreBroad.png)
 
-👤 Author
+## 👤 Author
 - Name: [Thomas Lawrence]
 - Email: [ThomasLawrence642@gmail.com](mailto:thomaslawrence642@gmail.com)
 - LinkedIn: [www.linkedin.com/in/tthomas-lawrence](www.linkedin.com/in/tthomas-lawrence)
