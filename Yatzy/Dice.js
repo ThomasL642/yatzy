@@ -14,18 +14,23 @@ class Roll {
 class RollHistory {
     constructor() {
         this.history = [];
+        addData("RollHistory", []);
     }
 
-    addRoll(roll) {
+    async addRoll(roll) {
+        this.history = await fetchValue("RollHistory");
         this.history.push(roll);
+        await updateValue("RollHistory", this.history);
     }
 
-    getHistory() {
-        return this.history;
+    async getHistory() {
+        //return this.history;
+        return await fetchValue("RollHistory");
     }
 
-    clearHistory() {
+    async clearHistory() {
         this.history = [];
+        await updateValue("RollHistory", []);
     }
     
 }

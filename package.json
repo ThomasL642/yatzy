@@ -1,0 +1,15 @@
+{
+  "name": "yatzy",
+  "version": "1.0.0",
+  "description": "This repository contains a Yatzy game implemented in HTML, CSS, and JavaScript. The game simulates the classic dice game \"Yatzy,\" where players roll dice to achieve specific combinations for points.",
+  "main": "YatzyServer.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5"
+  }
+}

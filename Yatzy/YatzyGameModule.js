@@ -1,64 +1,83 @@
-let GameStarted = false;
-let PlayerTurn = 0;
-let NumberOfRolls = 0;
-let totaLNumberOfTurns = 13;
+// let GameStarted = false;
+// let PlayerTurn = 0;
+// let NumberOfRolls = 0;
+// let totaLNumberOfTurns = 13;
+
+// window.fetchAllData = fetchAllData;
+// window.fetchValue = fetchValue;
+// window.updateValue = updateValue;
 
 function restartGame(){
     location.reload();
 }
 
-function startGame() {
-        GameStarted = true;
-        // Game Starts
-        console.log("Game started! = " + GameStarted);
+async function startGame() {
         // Hide the start button after it’s clicked
-        const startButton = document.getElementById("startButton");
+        const startButton = document.getElementById('startButton');
         startButton.style.display = "none";
+        await addData("NumberOfRolls", 0);
+        await addData("numberOfTurns", 0);
+        await addData("scoreboardPlayer1", new YatzyScoreboard());
+        await addData("scoreboardPlayer2", new YatzyScoreboard());
 
         //Starting Player 1's Turn
-        PlayerTurn += 1;
-        startTurn();
+        await addData("PlayerTurn", 1);
+        await addData("FrozenDice", []);
         const RollPlayer1Element = document.getElementById("player1Roll");
         RollPlayer1Element.style.filter = "brightness(100%)";
+        startTurn();
     }
 
 function startTurn() {
-    console.log("Player " + PlayerTurn + "'s Turn");
+    //console.log("Player " + PlayerTurn + "'s Turn");
+    //const turn = fetchValue('PlayerTurn');
+    //console.log(turn);
 }
 
-function endTurn() {
+async function endTurn() {
     //clear historys for new turn
-    rollHistory.clearHistory();
-    NumberOfRolls = 0;
-    while (FrozenDice.length > 0) {
-        const dieNumber = FrozenDice.shift(); 
+    await rollHistory.clearHistory();
+    await updateValue("NumberOfRolls", 0);
+    TempFrozenDice = await fetchValue("FrozenDice");
+    while (TempFrozenDice.length > 0) {
+        const dieNumber = TempFrozenDice.shift(); 
         const imageElement = document.getElementById("die" + dieNumber);
         imageElement.style.filter = "brightness(100%)";
     }
-
-    if (PlayerTurn == 2){ 
-        PlayerTurn -= 1;
+    await updateValue("FrozenDice", []);
+    TempPlayerTurn = await fetchValue("PlayerTurn");
+    if (TempPlayerTurn == 2){ 
+        TempPlayerTurn -= 1;
+        updateValue("PlayerTurn", TempPlayerTurn);
         const RollPlayer1Element = document.getElementById("player1Roll");
         RollPlayer1Element.style.filter = "brightness(100%)";
         const RollPlayer2Element = document.getElementById("player2Roll");
         RollPlayer2Element.style.filter = "brightness(50%)";
-        totaLNumberOfTurns -= 1;
-        if (totaLNumberOfTurns < 1) {
+        TempNumberOfTurns = await fetchValue("numberOfTurns");
+        TempNumberOfTurns += 1;
+        await updateValue("numberOfTurns", TempNumberOfTurns);
+        if (TempNumberOfTurns > 12) {
             endGame();
         }
     }
     else {
-        PlayerTurn += 1;
+        TempPlayerTurn += 1;
+        updateValue("PlayerTurn", TempPlayerTurn);
         const RollPlayer1Element = document.getElementById("player1Roll");
         RollPlayer1Element.style.filter = "brightness(50%)";
         const RollPlayer2Element = document.getElementById("player2Roll");
         RollPlayer2Element.style.filter = "brightness(100%)";
     }
-    console.log("it is now Player " + PlayerTurn + "'s turn");
+    console.log("it is now Player " + TempPlayerTurn + "'s turn");
 }
 
-function endGame() {
+// TODO: Redo endturn with http methods
+async function endGame() {
     console.log("endGame is called");
+    scoreboardPlayer1 = await fetchValue("scoreboardPlayer1");
+    scoreboardPlayer2 = await fetchValue("scoreboardPlayer2");
+    scoreboardPlayer1 = Object.assign(new YatzyScoreboard(), scoreboardPlayer1);
+    scoreboardPlayer2 = Object.assign(new YatzyScoreboard(), scoreboardPlayer2);
     // make the end game pop appear
     const endGamePopUp = document.getElementById("endGamePopUp");
     endGamePopUp.style.display = "flex";
@@ -91,6 +110,13 @@ function endGame() {
         winnerMessageText.innerHTML = "Congratulations Player " + winner + " You Won!";
         loserMessageText.innerHTML = "Sorry Player " + loser + " You Lost!"
     }
+    await deleteData("RollHistory");
+    await deleteData("NumberOfRolls");
+    await deleteData("numberOfTurns");
+    await deleteData("scoreboardPlayer1");
+    await deleteData("scoreboardPlayer2");
+    await deleteData("PlayerTurn");
+    await deleteData("FrozenDice");
 }
 
 window.restartGame = restartGame;

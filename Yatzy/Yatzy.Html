@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>2 Player Local Yahtzee</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="Style.css">
+    <script src="RollButton.js"></script>
     <script src="Dice.js"></script>
     <script src="YatzyEngine.js"></script>
     <script src="YatzyGameModule.js"></script>
     <script src="FreezeDie.js"></script>
-    <script src="RollButton.js"></script>
     <script src="ScoreBoardButtons.js"></script>
+    <script src="Animation.js"></script>
+    <script src="ServerFunctions.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 </head>
 <body>
 
@@ -63,11 +66,11 @@
         <div>
             <h2>Player 1</h2>
             <div>
-                <img onclick="FreezeDie(1)" id="die1" src="Dice Assets/dice(1).png" alt="Die 1">
-                <img onclick="FreezeDie(2)" id="die2" src="Dice Assets/dice(1).png" alt="Die 2">
-                <img onclick="FreezeDie(3)" id="die3" src="Dice Assets/dice(1).png" alt="Die 3">
-                <img onclick="FreezeDie(4)" id="die4" src="Dice Assets/dice(1).png" alt="Die 4">
-                <img onclick="FreezeDie(5)" id="die5" src="Dice Assets/dice(1).png" alt="Die 5">
+                <img onclick="FreezeDie(1)" id="die1" src="https://github.com/ThomasL642/yatzy/blob/main/Dice%20Assets/dice(6).png?raw=true" alt="Dice Assets/dice(6).png">
+                <img onclick="FreezeDie(2)" id="die2" src="https://github.com/ThomasL642/yatzy/blob/main/Dice%20Assets/dice(6).png?raw=true" alt="Dice Assets/dice(6).png">
+                <img onclick="FreezeDie(3)" id="die3" src="https://github.com/ThomasL642/yatzy/blob/main/Dice%20Assets/dice(6).png?raw=true" alt="Dice Assets/dice(6).png">
+                <img onclick="FreezeDie(4)" id="die4" src="https://github.com/ThomasL642/yatzy/blob/main/Dice%20Assets/dice(6).png?raw=true" alt="Dice Assets/dice(6).png">
+                <img onclick="FreezeDie(5)" id="die5" src="https://github.com/ThomasL642/yatzy/blob/main/Dice%20Assets/dice(6).png?raw=true" alt="Dice Assets/dice(6).png">
             </div>
             <button id="player1Roll" onclick="RollButtonPlayer(1)" class="roll">Roll Die</button>
         </div>
@@ -76,11 +79,11 @@
         <div>
             <h2>Player 2</h2>
             <div>
-                <img onclick="FreezeDie(6)" id="die6" src="Dice Assets/dice(1).png" alt="Die 1">
-                <img onclick="FreezeDie(7)" id="die7" src="Dice Assets/dice(1).png" alt="Die 2">
-                <img onclick="FreezeDie(8)" id="die8" src="Dice Assets/dice(1).png" alt="Die 3">
-                <img onclick="FreezeDie(9)" id="die9" src="Dice Assets/dice(1).png" alt="Die 4">
-                <img onclick="FreezeDie(10)" id="die10" src="Dice Assets/dice(1).png" alt="Die 5">
+                <img onclick="FreezeDie(6)" id="die6" src="https://github.com/ThomasL642/yatzy/blob/main/Dice%20Assets/dice(6).png?raw=true" alt="Dice Assets/dice(6).png">
+                <img onclick="FreezeDie(7)" id="die7" src="https://github.com/ThomasL642/yatzy/blob/main/Dice%20Assets/dice(6).png?raw=true" alt="Dice Assets/dice(6).png">
+                <img onclick="FreezeDie(8)" id="die8" src="https://github.com/ThomasL642/yatzy/blob/main/Dice%20Assets/dice(6).png?raw=true" alt="Dice Assets/dice(6).png">
+                <img onclick="FreezeDie(9)" id="die9" src="https://github.com/ThomasL642/yatzy/blob/main/Dice%20Assets/dice(6).png?raw=true" alt="Dice Assets/dice(6).png">
+                <img onclick="FreezeDie(10)" id="die10" src="https://github.com/ThomasL642/yatzy/blob/main/Dice%20Assets/dice(6).png?raw=true" alt="Dice Assets/dice(6).png">
             </div>
             <button id="player2Roll" onclick="RollButtonPlayer(2)" class="roll">Roll Die</button>
         </div>
