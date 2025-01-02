@@ -53,6 +53,6 @@ The game follows traditional Yatzy rules, with 13 rounds and one score selected 
 ![ScoreBroad](MockupImages/ScoreBroad.png)
 
 ## 👤 Author
-- Name: [Thomas Lawrence]
+- Name: Thomas Lawrence
 - Email: [ThomasLawrence642@gmail.com](mailto:thomaslawrence642@gmail.com)
 - LinkedIn: [www.linkedin.com/in/tthomas-lawrence](www.linkedin.com/in/tthomas-lawrence)
