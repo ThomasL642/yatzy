@@ -11,7 +11,7 @@ This repository contains a Yatzy game implemented in HTML, CSS, and JavaScript. 
 ## 🔧 Installation & Usage
 
 ### Prerequisites
-- [Install Node.js, npm & MySQL]
+- Install Node.js, npm & MySQL
 
 ### Setup Instructions
 1. Download the files from the repository
